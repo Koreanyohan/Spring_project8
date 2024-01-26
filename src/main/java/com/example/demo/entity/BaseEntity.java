@@ -20,9 +20,7 @@ abstract class BaseEntity {
     LocalDateTime regDate;
 
     @LastModifiedDate //인스턴스가 수정되는 것을 감지하여 현재시간을 저장
-    LocalDateTime modDate;
-
-    
+    LocalDateTime modDate;    
     // 실행클래스에 @EnableJpaAuditing 이거넣어야됨.!!! 그래야 날짜 입력
 }
 

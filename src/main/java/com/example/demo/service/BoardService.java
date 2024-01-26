@@ -3,6 +3,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.example.demo.dto.BoardDTO;
 import com.example.demo.entity.Board;
 
@@ -31,8 +33,10 @@ public interface BoardService {
    
 
 	// 2. 게시물 목록조회 (p.19-21)
-	List<BoardDTO> getList(); // DTO타입 게시물목록 반환하는 추상 메서드 -> BoardServiceImpl에서 구현	
 	
+	//List<BoardDTO> getList(); // DTO타입 게시물목록 반환하는 추상 메서드 -> BoardServiceImpl에서 구현 - 페이지 정렬위해 삭제함	
+	
+	Page<BoardDTO> getList(int pageNumber);
 
 	// ** repository에서 추출한 엔티티-> dto객체로 변환하는 일반 메서드
 		//	default키워드 이용해서 일반메서드 인-페에 생성 가능. (java8부터) 

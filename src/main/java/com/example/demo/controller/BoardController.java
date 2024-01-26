@@ -1,8 +1,8 @@
+/*8장 p.9*/
 package com.example.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,23 +19,38 @@ import com.example.demo.service.BoardService;
 public class BoardController {
 
     @Autowired
-    BoardService service;
+    private BoardService service;
 
-    // 메인화면 (p.8)
-    @GetMapping("/main")
-    public void main() {
-    }
     
     
-    // 1. 목록화면 (p.22 -> p.26)
-    @GetMapping ("/list")
-    public void list(Model model) { // 컨트롤러 통해서 dto-> view. 따라서 view에 model이용해서 dto 보내면 된다.
-    	List<BoardDTO> list = service.getList();
+    @GetMapping("/list")
+    public void list (@RequestParam(defaultValue="0", name="page") int page, Model model) { // (파라미터 / 모델 객체=>view단에 데이터 전달)
+    								// ㄴ !! 사용자가 파라미터(page) 안적었을 경우(400에러) 대입시킬 기본 값
+    	// 게시물 목록 조회
+    	Page<BoardDTO> list = service.getList(page); // Page - domain으로 import
     	
-    	model.addAttribute("list", list);
+    	// 화면에 결과 데이터 전달
+    	model.addAttribute("list",list);  // => list.html 32행 가봐라
+    
+    	System.out.println("전체 페이지 수: " + list.getTotalPages());
+    	System.out.println("전체 게시물 수: " + list.getTotalElements());
+    	System.out.println("현재 페이지 번호 : " + list.getNumber() + 1);
+    	System.out.println("페이지에 표시할 게시물 수 : " + list.getNumberOfElements());
+    
     }
     
     
+    /*  ７장에 있던것
+	 * // 1. 목록화면
+	 * @GetMapping ("/list") 
+	 * public void list(Model model) { // 컨트롤러 통해서 dto-> view.	 * 따라서 view에 model이용해서 dto 보내면 된다. 
+	 * 
+	 * List<BoardDTO> list = service.getList();
+	 * 
+	 * model.addAttribute("list", list); 
+	 * 
+	 * }
+	 */        
     
     // 2-1. 등록화면 (p.32)
     @GetMapping("/register")
@@ -100,6 +115,14 @@ public class BoardController {
     	service.remove(no);
     	
     	return "redirect:/board/list";
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     	
     	
     }    

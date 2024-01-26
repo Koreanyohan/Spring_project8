@@ -1,6 +1,6 @@
-<!-- p.23 -->
+<!-- 8장 p.10 => 52행   p.12 => 75행   p.12 =>52행  p.13 60행-->
 <!DOCTYPE html>
-<!-- 4~6행 exSidebar.html에서 가져옴 -->
+
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
@@ -49,7 +49,37 @@
 
 </table>
 
-	<!-- ▼ p.36 -->
+			<!-- 8장 p.10 정적 속성의 목록 버튼 생성 -->
+<ul class="pagination h-100 justify-content-center align-items-center">
+	
+	<th:block th:each="page : ${#numbers.sequence(1, list.totalPages)}">
+	 
+	 	<!-- 1. 현재 페이지가 page와 일치시 -->
+		 <th:block th:if="${list.number+1 == page}"> 
+			<li class="page-item active"> <!-- active라는 css class속성이 색 반전시킴. -->
+				<a class="page-link" th:href="@{/board/list (page= ${page}) }">[[${page}]]</a>
+			</li>
+		 </th:block>
+		 
+		<!-- 2. 현재 페이지가 page와 일치하지 않을 시  -->
+	 	 <th:block th:unless="${list.number+1 == page}"> 
+			<li class="page-item">   <!-- active라는 css class속성 없앰 -->
+				<a class="page-link" th:href="@{/board/list (page=${page}) }">[[${page}]]</a>
+			</li>
+		 </th:block>
+		 
+	</th:block>
+	 
+</ul>
+
+ 	<!-- 8장 p.12 전달받은 페이지 정보를 사용하여 번호 목록을 출력하기 => 위에 넣기. 컨트롤러 33행 봐라 --> 
+<!-- <th:block th:each="page : ${#numbers.sequence(1, list.totalPages)}">
+	[[${page}]]
+</th:block> -->
+
+
+
+	
 	<script th:inline="javascript">
 	
 	$(document).ready(

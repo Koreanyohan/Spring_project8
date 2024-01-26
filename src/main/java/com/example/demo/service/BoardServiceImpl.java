@@ -1,4 +1,4 @@
-// 7장 p.16 
+// 8장 p.7 
 package com.example.demo.service;
 
 import java.util.ArrayList;
@@ -7,6 +7,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.BoardDTO;
@@ -35,19 +39,39 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
-	@Override // 게시물 목록조회 (p.19-21)
-	public List<BoardDTO> getList() {
+	/*
+	 * @Override // 게시물 목록조회 (p.19-21) public List<BoardDTO> getList() {
+	 * 
+	 * List<Board> result = repository.findAll(); //repository에서 Board 목록 가져와서 List에
+	 * 저장
+	 * 
+	 * List<BoardDTO> list = new ArrayList<>(); // BoardDTO 객체선언
+	 * 
+	 * list = result.stream() //스트림 생성 .map(entity -> entityToDTO(entity)) // 중간연산
+	 * entity 다량 생산 .collect(Collectors.toList()); // 최종연산 entity들 => dto리스트
+	 * 
+	 * return list; }
+	 */
+	
+	@Override /*-- 페이지 정렬 이용한 목록조회*/
+	public Page<BoardDTO> getList(int pageNumber) {
+		// 매개변수로 받은 페이지 번호를 인덱스로 변경
+		int pageNum = (pageNumber == 0) ? 0 : pageNumber -1;
 		
-		List<Board> result = repository.findAll(); //repository에서 Board 목록 가져와서 List에 저장
+		// 페이지번호, 개수, 정렬방식을 입력하여 페이지 정보 생성
+		Pageable pageable = PageRequest
+							.of(pageNum, 10, Sort.by("no").descending());
 		
-		List<BoardDTO> list = new ArrayList<>(); // BoardDTO 객체선언
+		// 게시물 목록조회 (BoardRepository의 객체인 repository에서  조건맞는
+		Page<Board> entityPage = repository.findAll(pageable); 
+		// 스트림을 사용하여 엔티티 리스트를 DTO 리스트로 변환
+		Page<BoardDTO> dtoPage = entityPage
+								.map(entity -> entityToDTO(entity));
+									
+		return dtoPage;				
 		
-		list = result.stream() //스트림 생성
-				.map(entity ->entityToDTO(entity)) // 중간연산 entity 다량 생산
-				.collect(Collectors.toList());	// 최종연산 entity들 => dto리스트
-		
-		return list;
 	}
+	
 	
 
 	@Override // 3. 게시물 상세조회 (p.38~)
@@ -101,6 +125,8 @@ public class BoardServiceImpl implements BoardService {
 		} else
 		return 0; // 실패
 	}
+
+	
 }
 
 

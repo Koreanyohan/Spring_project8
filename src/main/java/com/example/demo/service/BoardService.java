@@ -1,4 +1,4 @@
-// 7장 p.16 
+/*39행 에서 getList 재정의*/
 package com.example.demo.service;
 
 import java.util.List;

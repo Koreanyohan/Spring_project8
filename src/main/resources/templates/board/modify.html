@@ -1,0 +1,111 @@
+<!-- p.51   register 페이지랑 비교해보기 -->
+<!DOCTYPE html>
+<!-- 5,7행 부분 있어야 basic에 삽입됨. --> 
+<!-- 13, 18, 22, 26, 30, 34행 - thymleaf기능(th:) 이용해서 dto에서 데이터 전송받음. -->
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+<h1 class="mt-4">Board Modify Page</h1>
+
+<form> <!-- !!! register이랑 다르게 form태그에 덧댄거 없음. 처리할 이벤트가 너무 많아서 modify에서는 js로 아래에서 처리할 것이다. p.53 -->
+	   <!-- ㄴ 49행~ -->
+  <div class="form-group">            <!-- title이랑 content만 수정 가능하도록 readonly 속성 없앰 -->
+    <label >번호</label>
+    <input type="text" class="form-control" name="no" th:value="${dto.no}" readonly> <!-- dto : 컨트롤러 modify메서드에 연동 -->
+  </div>									<!-- ㄴ name에 field명 매핑한다. dto 참변 값들. qk와 변경가능한 값만 네이망함. -->
+
+  <div class="form-group">
+    <label >제목</label>
+    <input type="text" class="form-control" name="title" th:value="${dto.title}">
+  </div>
+  <div class="form-group">
+    <label >내용</label>
+    <textarea class="form-control" rows="5" name="content"> [[${dto.content}]] </textarea>
+  </div>
+  <div class="form-group">
+    <label >작성자</label>
+    <input type="text" class="form-control" th:value="${dto.writer}" readonly>
+  </div>
+  <div class="form-group">
+    <label >등록일</label>
+    <input type="text" class="form-control" th:value="${ #temporals.format( dto.regDate, 'yyyy/MM/dd HH:mm:ss') }" readonly>
+  </div>
+  <div class="form-group">
+    <label >수정일</label>
+    <input type="text" class="form-control" th:value="${ #temporals.format( dto.modDate, 'yyyy/MM/dd HH:mm:ss') }" readonly>
+  </div>
+
+</form>
+
+<button type="button" class="btn btn-primary modifyBtn">저장</button> <!-- 56행에 스타일 정의됨 -->
+<button type="button" class="btn btn-info listBtn">목록으로</button>	<!-- 72행에 스타일 정의됨 -->
+<button type="button" class="btn btn-danger removeBtn">삭제</button>	<!-- 81행에 스타일 정의됨 -->
+
+
+<script th:inline="javascript">  //register처럼 11행의 form태그에 넣기엔 양이 졸라많아서 여기서 넣음
+
+// form 태그객체 가져오기 -  //$() 함수: CSS선택자로 HTML 태그를 가져온다
+	var form = $("form");
+	
+ 	// click() 메서드 : 수정버튼을 클릭하면 특정코드를 수행한다.   
+	// confirm() 메서드 : 수정여부를 확인하는 차을 띄운다.	  58행
+	// [확인]을 클릭하면, 서버에 게시물 수정을 요청한다.
+	// [취소]를 클릭하면 이벤트를 종료한다(return;)
+	
+// 1. 수정버튼 이벤트처리
+	$(".modifyBtn").click(function() {  // $("수정버튼").click(버튼 클릭시 실행할 함수) / $(~) - 제이쿼리 기능
+		if(!confirm("수정하시겠습니까?")){ // confirm(띄울 창->여기서 대기상태됨)
+			return; // 취소누르면 !confirm이 true되서 return 실행. 아무것도 안일어남.
+		}
+			// 수정 버튼 누르면 위의 메서드 return되고, 아래의 메서드가 실행된다.
+	// form~attr~submit : 서버에 게시물 수정 요청    
+		form
+			.attr("action", "/board/modify") // 주소. board/modify로 redirect함. 
+			.attr("method", "post") // 방식. 폼태그는 PUT방식을 사용할 수 없으므로, POST방식으로 처리.
+				// ㄴ board/modify 정의 된거 2개지. 그 중에 postMapping된거 호출 하려고 이거 씀.즉, 컨트롤러의 modifyPost 메서드 실행
+			.submit(); 
+
+	});
+	
+	
+ // 2. 목록버튼 이벤트처리 
+	$(".listBtn").click(function(){ 
+		form
+			.attr("action", "/board/list") //주소 board/list로 redirect함.
+			.attr("method", "get") //요청방식 => controller의 list메서드 실행
+			.submit();		
+	});
+	
+ 
+ // 3. 삭제버튼 이벤트처리
+ 	$(".removeBtn").click(function(){ 		
+ 		form
+	 		.attr("action", "/board/remove") //주소 board/list로 redirect함.
+	 		.attr("method", "post") //요청방식 => controller의 remove메서드 실행
+	 		.submit(); 		
+ 		
+ 	});
+
+</script>
+
+
+
+ </th:block>  <!-- 7행에서 시작 -->
+
+</th:block> 	<!-- 5행에서 시작 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

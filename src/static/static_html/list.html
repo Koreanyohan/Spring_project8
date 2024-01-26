@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<h1>Board List Page
+    <span>
+        <a href="#">
+            <button type="button" class="btn btn-outline-primary"> 게시물 등록</button>
+        </a>
+    </span>
+</h1>
+
+<table class="table table-striped"> <!-- 부트스트랩의 스타일 적용 -->
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">제목</th>
+        <th scope="col">작성자</th>
+        <th scope="col">등록일</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>1번글</td>
+        <td>둘리</td>
+        <td>2023/02/21</td>
+    </tr>
+    <tr>
+        <th scope="row">2</th>
+        <td>2번글</td>
+        <td>또치</td>
+        <td>2023/02/21</td>
+    </tr>
+    <tr>
+        <th scope="row">3</th>
+        <td>3번글</td>
+        <td>도우너</td>
+        <td>2023/02/21</td>
+    </tr>
+    </tbody>
+
+</table>
+
+<script th:inline="javascript">
+			$(document).ready(function(){
+			  // 실행할 기능을 정의
+			  var msg = [[${msg}]]
+			  if(msg != null){
+				  alert(msg + "번 글이 등록되었습니다.");
+			  }
+			});
+</script>

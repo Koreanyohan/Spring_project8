@@ -1,0 +1,33 @@
+<!-- p.23 -->
+<!DOCTYPE html>
+<!-- 4,6행 부분 있어야 basic에 삽입됨. -->
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+    
+<h1 class="mt-4">Board Register Page</h1>
+
+
+<!-- p.35 ↓↓↓↓↓↓↓-->
+<form th:action="@{/board/register}" th:method="post">   <!-- vs modify파일 11행 --> 
+			 	<!-- ㄴ 데이터 받을 주소. html이아니라 url.(컨트롤러 가봐)   th:method는 방식 post라서 boardController의 postMapping이 호출됨. cf) 메서드는 post랑 get밖에 안됨 form에서는-->
+  <div class="form-group"> 	 <!--  BoardDTO에서 동적으로 입력되어야할 데이터만 form형식에 입력 -->
+    <label >제목</label>
+    <input type="text" class="form-control" name="title"> <!-- name에 field명 매핑한다. dto 참변 값들 -->
+  </div>
+  <div class="form-group">
+    <label >내용</label>
+    <textarea class="form-control" rows="5" name=""></textarea>
+  </div>
+  <div class="form-group">
+    <label >작성자</label>
+    <input type="text" class="form-control" name="writer">
+  </div>
+
+  <button type="submit" class="btn btn-primary">등록</button>
+</form>
+
+
+ </th:block>  <!-- 6행에서 시작 -->
+
+</th:block> 	<!-- 4행에서 시작 -->

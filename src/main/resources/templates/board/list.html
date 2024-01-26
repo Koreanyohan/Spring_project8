@@ -1,0 +1,91 @@
+<!-- p.23 -->
+<!DOCTYPE html>
+<!-- 4~6행 exSidebar.html에서 가져옴 -->
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+	<th:block th:fragment="content">
+
+<h1>Board List Page
+    <span>
+        <a th:href="@{/board/register}"> <!-- p.26( cf. 'a href' - 하이퍼링크 태그). @{..}는 타임리프의 링크표현식) -->
+            <button type="button" class="btn btn-outline-primary"> 게시물 등록</button>
+            						          <!-- static-css-styles.html 2982행 -->
+        </a>
+    </span>
+</h1>
+
+
+
+<table class="table table-striped"> <!-- 부트스트랩의 스타일 적용. static-css-styles.html에서 가져옴. 1796행  -->
+    <thead>   <!-- 20-27행 정적 데이터 부분. 수정 x -->
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">제목</th>
+        <th scope="col">작성자</th>
+        <th scope="col">등록일</th>
+    </tr>
+    </thead>    
+    	
+    	
+    	
+    <tbody> <!-- 동적 데이터 입력부 -->
+		<tr th:each ="dto : ${list}">  <!-- 컨트롤러에서 받은 변수 list를 여기서 선언한 dto에 넣음 p.26-27 -->
+				
+		<th> <!-- view단에서 dto.no눌렀을때 상세화면으로 이동되게 하기 -->
+			<a th:href=" @{/board/read(no= ${dto.no} ) } ">  [[${dto.no}]]  </a>  
+			<!-- 링크표현식 안에 파라미터(no=${dto.no}) 넣기 -->        <!-- (키=값) 부분은 (/board/read?no=1) 으로 처리됨 -->		
+		</th>
+		 
+		<td> [[${dto.title}]]</td>
+		
+		<td> [[${dto.writer}]]</td>
+		
+		<td> [[ ${ #temporals.format( dto.regDate, 'yyyy/MM/dd') } ]] </td>   
+		<!-- 날짜데이터 특정한 형식으로 표현. temporals라는 객체 생성&메서드 (value, pattern) -->				
+		
+    	</tr>
+    </tbody>
+    
+
+</table>
+
+	<!-- ▼ p.36 -->
+	<script th:inline="javascript">
+	
+	$(document).ready(
+			
+		function(){
+		
+			var msg = [[ ${msg} ]]; /* 컨트롤러에서 msg라는 변수 받음 */
+		
+			if(msg !=null){
+			alert (msg + "번 글이 등록되었습니다.")
+			
+			}
+		
+		}
+	
+	);
+	
+	</script>
+
+ </th:block> <!-- 6행에서 시작 -->
+
+</th:block>  <!-- 4행에서 시작 -->
+
+
+<!-- 타임리프 태그들 앞에 th: 잊지마 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+

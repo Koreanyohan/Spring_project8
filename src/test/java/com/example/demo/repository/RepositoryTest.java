@@ -27,7 +27,7 @@ public class RepositoryTest {
 		
 		for (int i=1; i<=30 ; i++) {
 		Board board = Board.builder()
-				.title(i + "번글").content("내용입니다").writer("둘리")
+				.title(i + "번글").content("내용입니다").writer("둘리") // <= 8장 26페이지처리하고 에러 생김. 당연한것.
 				.build();  // no, 날짜는 시스템이 자동으로 입력해주므로, 생성자에 굳이 안넣어도 됨.
 			repository.save(board);
 		}

@@ -1,4 +1,4 @@
-<!-- 8장 p.10 => 52행   p.12 => 75행   p.12 =>52행  p.13 60행-->
+<!-- 8장 p.10 => 52행   p.12 => 75행   p.12 =>52행  p.13 60행   p.16 35행-->
 <!DOCTYPE html>
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
@@ -29,10 +29,10 @@
     	
     	
     <tbody> <!-- 동적 데이터 입력부 -->
-		<tr th:each ="dto : ${list}">  <!-- 컨트롤러에서 받은 변수 list를 여기서 선언한 dto에 넣음 p.26-27 -->
+		<tr th:each ="dto : ${list}">  <!-- 컨트롤러에서 받은 변수 list를 여기서 선언한 dto에 넣음 7장 p.26-27 -->
 				
 		<th> <!-- view단에서 dto.no눌렀을때 상세화면으로 이동되게 하기 -->
-			<a th:href=" @{/board/read(no= ${dto.no} ) } ">  [[${dto.no}]]  </a>  
+			<a th:href=" @{/board/read(no= ${dto.no}, page= ${list.number + 1} ) } ">  [[${dto.no}]]  </a>   <!-- ,page= ${list.number + 1) -> 8장 p.16-17  컨트롤러에서 전달받은 list에서 페이지 번호를 추출하는 식. --> 
 			<!-- 링크표현식 안에 파라미터(no=${dto.no}) 넣기 -->        <!-- (키=값) 부분은 (/board/read?no=1) 으로 처리됨 -->		
 		</th>
 		 

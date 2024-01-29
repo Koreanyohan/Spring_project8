@@ -76,10 +76,11 @@ public class BoardController {
     
     // 3. 상세조회 (p.41)
     @GetMapping("/read")
-    public void read(@RequestParam(name="no") int no, Model model) { // 게시물번호가 파라미터
-    	BoardDTO dto = service.read(no); 
+    public void read(@RequestParam(name="no") int no, @RequestParam(defaultValue="0", name="page") int page, Model model) { // 게시물번호&페이지 번호가 파라미터
+    	BoardDTO dto = service.read(no); 							//    ㄴ 기본값			ㄴ 파라미터 이름
     	
-    	model.addAttribute("dto", dto); // 컨트롤러 -> view 전달
+    	model.addAttribute("dto", dto);		// 컨트롤러 -> view 전달
+    	model.addAttribute("page", page);   //화면에 페이지 번호 전달 8장 p.16
     }
     
     

@@ -1,4 +1,4 @@
-// 8장 p.8 
+  // 8장 p.8 
 package com.example.demo.service;
 
 import java.util.List;
@@ -29,10 +29,31 @@ public class BoardServiceTest {  // cf) BoardService라고 클래스이름 만�
 		for(BoardDTO dto : list) {
 			System.out.println(dto);
 		}
-	}	
+	}	  
 	
 	
 	
+	  @Test 
+	  public void 게시물등록() { // 8장 p.27
+	  
+	  BoardDTO dto = BoardDTO.builder()
+			  .title("2번글").content("내용입니다3").writer("user1")
+			  .build();
+	  
+	  int no = service.register(dto); // 인페인 BoardService 타입의 service변수의 추상클래스
+	  // register 호출 // -> @Service선언하여 추상메서드 구현한 BoardServiceImpl의 register클래스 호출
+	  
+	  System.out.println("새로운 게시물 번호 : " + no); } 
+	
+	  
+	  @Test
+	  public void 게시물조회() { // 8장 p.28
+		  BoardDTO dto = service.read(1);
+		  
+		  System.out.println(dto);
+	  }
+	  
+	  
 	// 7장것들
 	
 	/*

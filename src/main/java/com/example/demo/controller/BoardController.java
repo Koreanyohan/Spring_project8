@@ -40,6 +40,10 @@ public class BoardController {
     }
     
     
+    
+    
+    
+    
     /*  ７장에 있던것
 	 * // 1. 목록화면
 	 * @GetMapping ("/list") 

@@ -76,7 +76,7 @@ public class BoardRepositoryTest {
 	void 있는아이디로게시물생성하기() {
 		//회원 엔티티 생성
 		Member member = Member.builder()
-						.id("user1")
+						.id("user2")
 						.build();
 		
 		//회원 테이블에 없는 아이디를 사용하면 에러남

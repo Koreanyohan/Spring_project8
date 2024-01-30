@@ -24,7 +24,7 @@ public class BoardServiceTest {  // cf) BoardService라고 클래스이름 만�
 		
 		Page<BoardDTO> page = service.getList(1);
 		
-		List<BoardDTO> list = page.getContent();
+		List<BoardDTO> list = page.getContent(); // Page.getContent()=> List반환
 		
 		for(BoardDTO dto : list) {
 			System.out.println(dto);

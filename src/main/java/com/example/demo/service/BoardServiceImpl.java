@@ -63,8 +63,8 @@ public class BoardServiceImpl implements BoardService {
 							.of(pageNum, 10, Sort.by("no").descending());
 		
 		// 게시물 목록조회 (BoardRepository의 객체인 repository에서  조건맞는
-		Page<Board> entityPage = repository.findAll(pageable); 
-		// 스트림을 사용하여 엔티티 리스트를 DTO 리스트로 변환
+		Page<Board> entityPage = repository.findAll(pageable); // findAll(Pageable객체) => Page로 반환(리스트 + 페이지정보)
+		// 엔티티 리스트를 DTO 리스트로 변환 (스트림 같지만 최종연산 없음)
 		Page<BoardDTO> dtoPage = entityPage
 								.map(entity -> entityToDTO(entity));
 									

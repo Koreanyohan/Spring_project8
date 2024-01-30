@@ -1,0 +1,52 @@
+<!-- 8장 36~39페이지 -->
+<!DOCTYPE html>
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+	
+	<th:block th:fragment="content">
+
+		<h1>Member List Page</h1>
+		
+		<!-- [[${list.content}]]] 컨트롤러에서 받은 list의 내용(페이지 내용) 출력 -->
+
+		<table class="table table-striped">
+			<thead> <!-- 제목 -->
+				<tr>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>등록일</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="dto : ${list}">					
+				
+					<!-- [[${dto}]] --> <!-- 이렇게 데이터 통으로 출력해서 비교해보면 죠습니다. -->
+				
+					<th>
+						<a th:href="@{ /member/read( id=${dto.id}, page=${list.number + 1} ) }"> <!-- 파라미터 2개 -->
+							[[${dto.id}]] 
+						</a>
+					</th>
+					<td>
+						[[${dto.name}]]
+					</td>
+					<td>
+						[[${ #temporals.format (dto.regDate, 'yyyy/MM/dd')  } ]]
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- 페이지 번호 목록 -->
+		<ul class="pagination h-100 justify-content-center align-items-center">
+			<li th:class=" 'page-item ' + ${(list.number + 1) == page?'active':''} " th:each="page: ${#numbers.sequence(1, list.totalPages)}">
+				<a class="page-link" th:href="@{/member/list(page = ${page})}">
+					[[${page}]]
+				</a>
+			</li>
+		</ul>
+
+	</th:block>
+</th:block>
+	

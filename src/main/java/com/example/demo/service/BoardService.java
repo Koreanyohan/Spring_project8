@@ -19,7 +19,7 @@ public interface BoardService {
 		//	default키워드 이용해서 일반메서드 인-페에 생성 가능. (java8부터) 
 		// -> 즉, 인페 상속받는 클래스가 공통으로 상용할 것은 default메서드로, 자손 각자가 구현해서 사용할것은 추상메서드로 인페에 선언.
 		// 이전에 했던 것은 repository에서 바로 dto객체 생성해서 entity에 넣어버리는 거였지. 지금하는건 저장된 dto에서 꺼내기
-	default Board dtoToEntity(BoardDTO dto) {
+	default Board dtoToEntity(BoardDTO dto) { // 회원등록시에 dto를 엔티티로 바꿔야 repository에 저장할 수 있지.
 //				ㄴ Entity	 <=		ㄴ DTO
 		Member member = Member.builder(). //8장 p.26
 						id(dto.getWriter())
@@ -46,7 +46,7 @@ public interface BoardService {
 	// ** repository에서 추출한 엔티티-> dto객체로 변환하는 일반 메서드
 		//	default키워드 이용해서 일반메서드 인-페에 생성 가능. (java8부터) 
 		// -> 즉, 인페 상속받는 클래스가 공통으로 상용할 것은 default메서드로, 자손 각자가 구현해서 사용할것은 추상메서드로 인페에 선언.
-	default BoardDTO entityToDTO(Board entity) {
+	default BoardDTO entityToDTO(Board entity) { //(엔티티에서 dto추출해야 화면 view단에 넘겨줄 수 있으니까)
 //	   		ㄴ DTO	 	<=  		ㄴ Entity
 			BoardDTO dto = BoardDTO.builder()
 					.no(entity.getNo()).title(entity.getTitle())

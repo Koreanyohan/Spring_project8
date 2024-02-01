@@ -30,6 +30,16 @@ public class MemberServiceTest {
 	
 	
 	@Test
+	public void 회원상세조회 () {		
+		
+		MemberDTO dto = service.read("주요한짱");
+		
+		System.out.println(dto);	
+		
+	}
+	
+	
+	@Test
 	void 회원등록1 () { // p.43
 		MemberDTO dto1 = MemberDTO.builder()
 				.id("wndygks").password("1234").name("주요한")

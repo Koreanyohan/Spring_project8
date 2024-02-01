@@ -24,7 +24,7 @@ public interface MemberService { // default 접근제한자로 선언된 메서�
 	};
 	
 	
-// 2. 회원 단건 조회(상세조회)
+// 2. 회원 단건 조회(상세조회) (8장 p.51)
 	MemberDTO read(String id);
 	
 	
@@ -34,7 +34,7 @@ public interface MemberService { // default 접근제한자로 선언된 메서�
 	//엔티티를 DTO로 변환하는 메서드
 	default Member dtoToEntity (MemberDTO dto) {
 		Member member = Member.builder()
-							.id(dto.getId()).Password(dto.getPassword()).name(dto.getName())
+							.id(dto.getId()).password(dto.getPassword()).name(dto.getName())
 							.build();
 					// cf) dto에서 입력받을때 regDate, modDate는 우리가 입력한 값이 아니므로 객체 생성시 넣지 않음.
 		return member;

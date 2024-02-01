@@ -22,7 +22,7 @@ public class MemberRepositoryTest {
 	@Test
 	void 회원등록(){
 		Member member1 = Member.builder()
-				.id("yohan1").Password("1_1234").name("주요한1") .build();
+				.id("yohan1").password("1_1234").name("주요한1") .build();
 		
 		Member member2 = new Member("yohan2", "2_1234", "주요한2");
 		

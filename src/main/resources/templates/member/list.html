@@ -24,7 +24,7 @@
 					<!-- [[${dto}]] --> <!-- 이렇게 데이터 통으로 출력해서 비교해보면 죠습니다. -->
 				
 					<th>
-						<a th:href="@{ /member/read( id=${dto.id}, page=${list.number + 1} ) }"> <!-- 파라미터 2개 -->
+						<a th:href="@{/member/read( id=${dto.id}, page=${list.number + 1} ) }"> <!-- 파라미터 2개. list에서 page도 상세화면으로 넘겨줌 -->
 							[[${dto.id}]] 
 						</a>
 					</th>
@@ -49,4 +49,13 @@
 
 	</th:block>
 </th:block>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
